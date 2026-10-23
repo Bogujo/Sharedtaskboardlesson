@@ -1,0 +1,62 @@
+@implements IDisposable
+@inject TaskService TaskService
+
+<section class="task-section">
+    <h2>Задачи (@tasks.Count)</h2>
+    @if (tasks.Count == 0)
+    {
+        <p class="empty">Пока задач нет. Добавьте первую.</p>
+    }
+    else
+    {
+        <ul class="task-list">
+            @foreach (var task in tasks)
+            {
+                <li @key="task.Id">
+                    <input type="checkbox" @bind="task.IsCompleted" @bind:after="() => ToggleTask(task.Id)" aria-label="Отметить задачу выполненной" />
+                    <a class="@(task.IsCompleted ? "completed" : string.Empty)" href="/task/@task.Id">@task.Title</a>
+                    <button class="delete" @onclick="() => DeleteTask(task.Id)">Удалить</button>
+                </li>
+            }
+        </ul>
+    }
+</section>
+
+@code {
+    private List<TaskItem> tasks = [];
+
+    protected override void OnInitialized()
+    {
+        TaskService.OnChange += HandleChange;
+        LoadTasks();
+    }
+
+    private void LoadTasks()
+    {
+        tasks = TaskService.GetAll();
+    }
+
+    private void HandleChange()
+    {
+        _ = InvokeAsync(() =>
+        {
+            LoadTasks();
+            StateHasChanged();
+        });
+    }
+
+    private void ToggleTask(Guid id)
+    {
+        TaskService.Toggle(id);
+    }
+
+    private void DeleteTask(Guid id)
+    {
+        TaskService.Delete(id);
+    }
+
+    public void Dispose()
+    {
+        TaskService.OnChange -= HandleChange;
+    }
+}

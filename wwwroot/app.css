@@ -1,0 +1,161 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f4f6f8;
+    color: #202733;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: min(760px, calc(100% - 32px));
+    margin: 0 auto;
+}
+
+header {
+    padding: 24px 0;
+    border-bottom: 1px solid #dce1e7;
+}
+
+.brand {
+    color: #202733;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+main {
+    padding: 36px 0;
+}
+
+h1 {
+    margin: 0 0 8px;
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+.intro,
+.empty {
+    color: #667085;
+}
+
+.form-card {
+    margin: 28px 0;
+    padding: 20px;
+    border: 1px solid #dce1e7;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.form-card label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+}
+
+input:not([type="checkbox"]) {
+    flex: 1;
+    min-width: 0;
+    padding: 11px 12px;
+    border: 1px solid #c8ced6;
+    border-radius: 6px;
+    font: inherit;
+}
+
+button {
+    padding: 10px 16px;
+    border: 0;
+    border-radius: 6px;
+    background: #2563eb;
+    color: #fff;
+    cursor: pointer;
+    font: inherit;
+}
+
+.task-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.task-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 4px;
+    border-bottom: 1px solid #dce1e7;
+}
+
+.task-list a {
+    flex: 1;
+    color: #202733;
+    text-decoration: none;
+}
+
+.task-list a:hover,
+.back:hover {
+    text-decoration: underline;
+}
+
+.completed {
+    color: #667085 !important;
+    text-decoration: line-through !important;
+}
+
+.delete {
+    padding: 7px 10px;
+    background: #e9edf2;
+    color: #344054;
+}
+
+.error {
+    margin: 10px 0 0;
+    color: #b42318;
+}
+
+.back {
+    display: inline-block;
+    margin-bottom: 24px;
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.details {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.details dt {
+    color: #667085;
+}
+
+.details dd {
+    margin: 0;
+}
+
+@media (max-width: 520px) {
+    .form-row {
+        flex-direction: column;
+    }
+
+    .details {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+
+    .details dd {
+        margin-bottom: 12px;
+    }
+}

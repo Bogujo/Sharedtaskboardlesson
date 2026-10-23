@@ -1,0 +1,32 @@
+@page "/task/{id:guid}"
+@inject TaskService TaskService
+
+<PageTitle>Детали задачи</PageTitle>
+
+<a class="back" href="/">← К списку задач</a>
+@if (task is null)
+{
+    <h1>Задача не найдена</h1>
+}
+else
+{
+    <h1>@task.Title</h1>
+    <dl class="details">
+        <dt>Статус</dt>
+        <dd>@(task.IsCompleted ? "Выполнена" : "Не выполнена")</dd>
+        <dt>Создана</dt>
+        <dd>@task.CreatedAt.ToString("dd.MM.yyyy HH:mm")</dd>
+    </dl>
+}
+
+@code {
+    [Parameter]
+    public Guid id { get; set; }
+
+    private TaskItem? task;
+
+    protected override void OnParametersSet()
+    {
+        task = TaskService.GetById(id);
+    }
+}

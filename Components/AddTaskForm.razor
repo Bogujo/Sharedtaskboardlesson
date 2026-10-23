@@ -1,0 +1,33 @@
+@inject TaskService TaskService
+@inject NavigationManager Nav
+
+<div class="form-card">
+    <label for="task-title">Новая задача</label>
+    <div class="form-row">
+        <input id="task-title" @bind="title" @bind:event="oninput" placeholder="Введите название задачи" />
+        <button @onclick="AddTask">Добавить</button>
+    </div>
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <p class="error">@errorMessage</p>
+    }
+</div>
+
+@code {
+    private string title = string.Empty;
+    private string? errorMessage;
+
+    private void AddTask()
+    {
+        if (string.IsNullOrWhiteSpace(title))
+        {
+            errorMessage = "Введите название задачи.";
+            return;
+        }
+
+        TaskService.Add(title.Trim());
+        title = string.Empty;
+        errorMessage = null;
+        Nav.NavigateTo("/");
+    }
+}
